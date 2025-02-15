@@ -62,20 +62,38 @@ class LinkedList {
     }
     return false;
   }
+
+  public deleteHead(): void {
+    if (this.head !== null) {
+      this.head = this.head.next;
+    }
+  }
+  public deleteNode(value: number): void {
+    if (this.head === null) {
+      return;
+    }
+    if (this.head.data === value) {
+      this.head = this.head.next;
+      return;
+    }
+
+    let current = this.head;
+    let previous: ListNode | null = null;
+
+    while (current !== null && current.data !== value) {
+      previous = current;
+      current = current.next!;
+    }
+
+    if (current === null) {
+      return;
+    }
+
+    if (previous !== null) {
+      previous.next = current.next;
+    }
+  }
 }
-
-let nodeOne = new ListNode(5);
-let linkedList = new LinkedList(nodeOne);
-
-linkedList.pushNode(10);
-linkedList.pushNode(15);
-linkedList.pushNode(20);
-
-linkedList.insertHead(38);
-linkedList.print();
-
-console.log(linkedList.find(5));
-console.log(linkedList.find(55));
 
 const initialNode = new ListNode(0);
 const newList = new LinkedList(initialNode);
@@ -84,3 +102,14 @@ for (let i = 0; i <= 10; i++) {
 }
 
 newList.print();
+// console.log(util.inspect(newList, true, null, true));
+
+newList.deleteHead();
+console.log('AFTER DELETE');
+newList.print();
+
+newList.deleteNode(25);
+console.log('AFTER NODE DELETION');
+newList.print();
+
+// console.log(util.inspect(newList, true, null, true));
