@@ -17,5 +17,6 @@ describe('fibonacciCalculator', () => {
     expect(fibonacciSequence(3)).toEqual([0, 1, 1]);
     expect(fibonacciSequence(4)).toEqual([0, 1, 1, 2]);
     expect(fibonacciSequence(5)).toEqual([0, 1, 1, 2, 3]);
+    expect(fibonacciSequence(14)).toEqual([0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233]);
   });
 });
