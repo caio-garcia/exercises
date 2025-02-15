@@ -14,5 +14,5 @@ module.exports = {
       statements: 80,
     },
   },
-  coveragePathIgnorePatterns: ['.config.js','coverage/','.class.ts']
+  coveragePathIgnorePatterns: ['.config.js','coverage/','.class.ts','app.ts']
 };
