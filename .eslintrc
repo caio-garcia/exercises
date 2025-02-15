@@ -1,0 +1,30 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "workspaces"],
+  "parserOptions": {
+    "project": [
+      "./tsconfig.eslint.json"
+    ]
+  },
+  "extends": ["prettier"],
+  "env": {
+    "jest": true,
+    "node": true,
+    "es2020": true
+  },
+  "ignorePatterns": ["build", "node_modules", "*.config.js", ".gitignore", "coverage"],
+  "settings": {
+    "workspaces": {
+      "extensions": [".js", ".ts", ".json"]
+    }
+  },
+  "rules": {
+    "import/prefer-default-export": "off",
+    "no-restricted-syntax": "off",
+    "quotes": [2, "single", { "avoidEscape": true }],
+    "@typescript-eslint/naming-convention": "off",
+    "no-underscore-dangle": ["error", { "allow": ["__typename"] }],
+    "no-template-curly-in-string": "off",
+    "@typescript-eslint/return-await": "off"
+  }
+}
