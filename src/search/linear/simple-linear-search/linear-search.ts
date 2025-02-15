@@ -6,5 +6,5 @@
  * @returns - The index of the found target or -1 if not found.
  */
 export function linearSearch<T>(elements: T[], target: any ): number {
-    return elements.findIndex((element) => element === target)
+    return elements.indexOf(target)
 }
