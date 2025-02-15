@@ -14,5 +14,6 @@ describe('linearSearch', () => {
     expect(linearSearch([2, 3, 5, 6, 12, 32], null)).toEqual(-1);
     expect(linearSearch([2, 3, 5, 6, 12, 32], undefined)).toEqual(-1);
     expect(linearSearch([2, 3, 5, 6, 12, 32], -2)).toEqual(-1);
+    expect(linearSearch([2, 3, 5, 6, 12, 32], false)).toEqual(-1);
   });
 });

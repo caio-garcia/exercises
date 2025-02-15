@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest --runInBand --passWithNoTests --config=./jest.config.js",
     "prettier": "prettier --check .",
-    "prettier:fix": "prettier --write ."
+    "prettier:fix": "prettier --write .",
+    "lint": "lint-staged"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +18,9 @@
     "ts-jest": "^29.2.5",
     "typescript": "^5.7.3",
     "prettier": "^3.5.1",
+    "eslint": "^8.56.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0"
+    "eslint-plugin-prettier": "^4.0.0",
+    "lint-staged": "^13.2.0"
   }
 }
