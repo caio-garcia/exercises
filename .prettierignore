@@ -1,0 +1,7 @@
+node_modules
+coverage
+.eslintrc
+.prettierrc
+.vscode
+*.config.js
+tsconfig.json
