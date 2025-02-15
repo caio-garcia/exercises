@@ -20,23 +20,32 @@ function userExists(username: string, userEmail: string): boolean {
   return users.some((user) => user.username === username || user.email === userEmail);
 }
 
-app.get('/users', (req: any, res: any) => {
-  return res.status(200).json(users);
+app.get('/users', (req: Request, res: Response) => {
+  res.status(200).json(users);
 });
 
-app.post('/users', (req: any, res: any) => {
+app.get('/user/:name', (req: Request, res: Response) => {
+  const { name } = req.params;
+  const user = users.find((user) => user.username === name);
+  if (!user) {
+    res.status(404).json({ error: 'User not found' });
+  }
+  res.status(200).json(user);
+});
+
+app.post('/users', (req: Request, res: Response) => {
   const { username, email, password } = req.body;
 
   if (!username || !email || !password) {
-    return res.status(400).json({ error: 'Missing required fields' });
+    res.status(400).json({ error: 'Missing required fields' });
   }
 
   if (!isValidEmail(email)) {
-    return res.status(400).json({ error: 'Invalid email format' });
+    res.status(400).json({ error: 'Invalid email format' });
   }
 
   if (userExists(username, email)) {
-    return res.status(400).json({ error: 'User already exists' });
+    res.status(400).json({ error: 'User already exists' });
   }
 
   const newUser: User = { username, email, password };
