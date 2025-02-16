@@ -1,12 +1,3 @@
-import * as fs from 'fs';
-/*
-Data: 2 lists of unsorted numbers
-Actions:
-- sort lists individually
-- take difference between the smallest on the left to the smallest on the right
-- sum the differences
-*/
-
 type sanitesedLists = {
   listA: number[];
   listB: number[];
