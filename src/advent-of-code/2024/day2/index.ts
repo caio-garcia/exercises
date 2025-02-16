@@ -36,11 +36,11 @@ function isSorted(report: number[]): boolean {
 
 function isWithinSafetyLevels(report: number[]): boolean {
   let differences: number[] = [];
+  let isSafe = true;
+
   for (let i = 0; i < report.length - 1; i++) {
     differences.push(report[i] - report[i + 1]);
   }
-
-  let isSafe = true;
 
   differences.forEach((value) => {
     if (value < -3 || value > 3 || value === 0) {
@@ -51,10 +51,47 @@ function isWithinSafetyLevels(report: number[]): boolean {
   return isSafe;
 }
 
+function isWithinDampenerSafetyLevels(report: number[]): boolean {
+  let differences: number[] = [];
+  let isSafe = true;
+
+  for (let i = 0; i < report.length - 1; i++) {
+    differences.push(report[i] - report[i + 1]);
+  }
+  console.log('REPORT', report);
+  console.log('ORIG DIFF', differences);
+
+  const indexOfDampenerValue = differences.findIndex((value) => value < -3 || value > 3 || value === 0);
+
+  if (indexOfDampenerValue !== -1) {
+    // TODO - the level needs to be removed not the difference
+    const dampenerDifferences = [
+      ...differences.slice(0, indexOfDampenerValue),
+      ...differences.slice(indexOfDampenerValue + 1),
+    ];
+    console.log('INDEX', indexOfDampenerValue);
+    console.log('DAMP DIFF', dampenerDifferences);
+
+    dampenerDifferences.forEach((value) => {
+      if (value < -3 || value > 3 || value === 0) {
+        isSafe = false;
+      }
+    });
+  }
+
+  return isSafe;
+}
+
 function safetyCalculator(report: string[]): boolean {
   const numericalReport = report.map((element) => Number(element));
 
   return isSorted(numericalReport) && isWithinSafetyLevels(numericalReport);
+}
+
+function dampenerSafetyCalculator(report: string[]): boolean {
+  const numericalReport = report.map((element) => Number(element));
+
+  return isSorted(numericalReport) && isWithinDampenerSafetyLevels(numericalReport);
 }
 
 export function safeReportsEvaluator(input: string): number {
@@ -63,6 +100,21 @@ export function safeReportsEvaluator(input: string): number {
 
   reports.forEach((report) => {
     if (safetyCalculator(report)) {
+      safeReportsCounter++;
+    }
+  });
+
+  return safeReportsCounter;
+}
+
+export function dampenerSafeReportEvaluator(input: string): number {
+  const reports = sanitiseReports(input);
+  let safeReportsCounter = 0;
+
+  reports.forEach((report) => {
+    console.log('REPORT 1', report);
+    if (dampenerSafetyCalculator(report)) {
+      console.log('REPORT SAFE', report);
       safeReportsCounter++;
     }
   });
