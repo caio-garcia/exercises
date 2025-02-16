@@ -7,5 +7,6 @@ const realInput = fs.readFileSync('src/advent-of-code/2024/day2/input.txt', 'utf
 describe('safeReportsEvaluator', () => {
   it('should successfully count how many reports are safe', () => {
     expect(safeReportsEvaluator(sampleInput)).toEqual(2);
+    expect(safeReportsEvaluator(realInput)).toEqual(564);
   });
 });

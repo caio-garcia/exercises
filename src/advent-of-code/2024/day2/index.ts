@@ -11,31 +11,61 @@ function sanitiseReports(input: string): string[][] {
   });
 }
 
-function isSorted(diff: number[]): boolean {
-  const ascendingSorted = diff.map((number) => (number > 0 ? 1 : 0));
-  console.log('ASC', ascendingSorted);
+function isSorted(report: number[]): boolean {
+  const initialTrend = report[1] - report[0];
+
+  for (let i = 1; i < report.length; i++) {
+    const currenTrend = report[i + 1] - report[i];
+
+    if (initialTrend > 0) {
+      if (currenTrend < 0) {
+        return false;
+      }
+    } else if (initialTrend < 0) {
+      if (currenTrend > 0) {
+        return false;
+      }
+    } else {
+      if (currenTrend !== 0) {
+        return false;
+      }
+    }
+  }
   return true;
 }
 
 function isWithinSafetyLevels(report: number[]): boolean {
-  return true;
+  let differences: number[] = [];
+  for (let i = 0; i < report.length - 1; i++) {
+    differences.push(report[i] - report[i + 1]);
+  }
+
+  let isSafe = true;
+
+  differences.forEach((value) => {
+    if (value < -3 || value > 3 || value === 0) {
+      isSafe = false;
+    }
+  });
+
+  return isSafe;
 }
 
 function safetyCalculator(report: string[]): boolean {
   const numericalReport = report.map((element) => Number(element));
-  console.log(numericalReport);
-  let differences: number[] = [];
-  for (let i = 0; i < numericalReport.length - 1; i++) {
-    differences.push(numericalReport[i] - numericalReport[i + 1]);
-  }
-  console.log('DIFF', differences);
-  return isSorted(numericalReport) || isWithinSafetyLevels(numericalReport);
+
+  return isSorted(numericalReport) && isWithinSafetyLevels(numericalReport);
 }
 
 export function safeReportsEvaluator(input: string): number {
   const reports = sanitiseReports(input);
-  let reportsSafe: boolean[] = [];
-  console.log(reports.forEach((report) => safetyCalculator(report)));
+  let safeReportsCounter = 0;
 
-  return 0;
+  reports.forEach((report) => {
+    if (safetyCalculator(report)) {
+      safeReportsCounter++;
+    }
+  });
+
+  return safeReportsCounter;
 }
