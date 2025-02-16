@@ -45,8 +45,29 @@ function differenceCalculator(listA: number[], listB: number[]): number[] {
   return differences;
 }
 
+function similarityScoreCalculator(element: number, list: number[]): number {
+  let counter: number = 0;
+
+  list.forEach((location) => {
+    if (location === element) {
+      counter++;
+    }
+  });
+  return counter * element;
+}
+
 export function locationDifferenceCalculator(lists: string): number {
   const { listA, listB } = sanitiseLists(lists);
   const locationDifferences = differenceCalculator(listA, listB);
   return locationDifferences.reduce((a, b) => a + b, 0);
+}
+
+export function similarityScore(lists: string): number {
+  const { listA, listB } = sanitiseLists(lists);
+
+  const counters = listA.map((location) => {
+    return similarityScoreCalculator(location, listB);
+  });
+
+  return counters.reduce((counterA, counterB) => counterA + counterB);
 }
