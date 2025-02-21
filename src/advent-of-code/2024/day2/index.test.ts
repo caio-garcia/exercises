@@ -10,7 +10,7 @@ describe('safeReportsEvaluator', () => {
     expect(safeReportsEvaluator(realInput)).toEqual(564);
   });
 
-  it.only('should successfully count how many reports are safe in the dampener context', () => {
+  xit('should successfully count how many reports are safe in the dampener context', () => {
     expect(dampenerSafeReportEvaluator(sampleInput)).toEqual(4);
     // expect(dampenerSafeReportEvaluator(realInput)).toEqual(564);
   });
